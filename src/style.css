@@ -1195,16 +1195,19 @@ img {
 
 /* --- Contact Section --- */
 .contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
   gap: var(--space-3xl);
-  align-items: start;
 }
 
 .contact-info {
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
+  width: 100%;
 }
 
 .contact-card {
@@ -1245,6 +1248,7 @@ img {
 
 .social-links {
   display: flex;
+  justify-content: center;
   gap: var(--space-md);
   margin-top: var(--space-md);
 }

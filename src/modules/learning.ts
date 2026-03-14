@@ -90,10 +90,6 @@ export function initLearning() {
       <p>${project.description}</p>
       <div class="learning-card-footer">
         <span class="learning-card-tech">${project.tech}</span>
-        <a href="${project.link}" class="learning-card-link" target="_blank">
-          Voir
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-        </a>
       </div>
     `
     grid.appendChild(card)
