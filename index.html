@@ -17,11 +17,29 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
     rel="stylesheet" />
-  <script type="module" crossorigin src="./assets/index-kGoSPIUq.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-yhvhFDd8.css">
+  <script type="module" crossorigin src="./assets/index-BO-24zOR.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CR2D2FdR.css">
 </head>
 
 <body>
+  <!-- Language Selection Popup -->
+  <div class="lang-popup-overlay" id="lang-popup-overlay">
+    <div class="lang-popup">
+      <div class="lang-popup-icon">🌍</div>
+      <h2 class="lang-popup-title">Choisissez votre langue<br><span>Choose your language</span></h2>
+      <div class="lang-popup-buttons">
+        <button class="lang-btn" id="lang-btn-fr">
+          <span class="lang-flag">🇫🇷</span>
+          <span class="lang-label">Français</span>
+        </button>
+        <button class="lang-btn" id="lang-btn-en">
+          <span class="lang-flag">🇬🇧</span>
+          <span class="lang-label">English</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Custom Cursor -->
   <div class="cursor" id="cursor"></div>
   <div class="cursor-follower" id="cursor-follower"></div>
@@ -35,29 +53,34 @@
         <span class="logo-bracket">/></span>
       </a>
       <ul class="nav-links" id="nav-links">
-        <li><a href="#hero" class="nav-link active" data-section="hero">Accueil</a></li>
-        <li><a href="#about" class="nav-link" data-section="about">À Propos</a></li>
-        <li><a href="#projects" class="nav-link" data-section="projects">Projets</a></li>
-        <li><a href="#learning" class="nav-link" data-section="learning">Apprentissage</a></li>
-        <li><a href="#skills" class="nav-link" data-section="skills">Compétences</a></li>
-        <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+        <li><a href="#hero" class="nav-link active" data-section="hero" data-i18n="nav.home">Accueil</a></li>
+        <li><a href="#about" class="nav-link" data-section="about" data-i18n="nav.about">À Propos</a></li>
+        <li><a href="#projects" class="nav-link" data-section="projects" data-i18n="nav.projects">Projets</a></li>
+        <li><a href="#learning" class="nav-link" data-section="learning" data-i18n="nav.learning">Apprentissage</a></li>
+        <li><a href="#skills" class="nav-link" data-section="skills" data-i18n="nav.skills">Compétences</a></li>
+        <li><a href="#contact" class="nav-link" data-section="contact" data-i18n="nav.contact">Contact</a></li>
       </ul>
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="5" />
-          <line x1="12" y1="1" x2="12" y2="3" />
-          <line x1="12" y1="21" x2="12" y2="23" />
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-          <line x1="1" y1="12" x2="3" y2="12" />
-          <line x1="21" y1="12" x2="23" y2="12" />
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-        </svg>
-        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
-      </button>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="lang-toggle" aria-label="Toggle language">
+          <span class="lang-toggle-flag" id="lang-toggle-flag">🇫🇷</span>
+        </button>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+      </div>
       <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -70,39 +93,39 @@
     <div class="hero-content">
       <div class="hero-badge">
         <span class="badge-dot"></span>
-        <span>Disponible pour des projets</span>
+        <span data-i18n="hero.badge">Disponible pour des projets</span>
       </div>
       <h1 class="hero-title">
-        <span class="title-line">Alban, Développeur</span>
+        <span class="title-line" data-i18n="hero.titleLine1">Alban, Développeur</span>
         <span class="title-line gradient-text" id="typing-text"></span>
       </h1>
-      <p class="hero-description">
+      <p class="hero-description" data-i18n="hero.descriptionHTML">
         Je conçois des expériences numériques innovantes à l'intersection du
         <strong>développement fullstack</strong>, de la <strong>robotique</strong>
         et du <strong>machine learning</strong>.
       </p>
       <div class="hero-cta">
         <a href="#projects" class="btn btn-primary">
-          <span>Voir mes projets</span>
+          <span data-i18n="hero.cta.projects">Voir mes projets</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="5" y1="12" x2="19" y2="12" />
             <polyline points="12 5 19 12 12 19" />
           </svg>
         </a>
-        <a href="#contact" class="btn btn-outline">Me contacter</a>
+        <a href="#contact" class="btn btn-outline" data-i18n="hero.cta.contact">Me contacter</a>
       </div>
       <div class="hero-stats">
         <div class="stat">
           <span class="stat-number" data-target="15">0</span><span class="stat-suffix">+</span>
-          <span class="stat-label">Projets</span>
+          <span class="stat-label" data-i18n="hero.stat.projects">Projets</span>
         </div>
         <div class="stat">
           <span class="stat-number" data-target="10">0</span><span class="stat-suffix">+</span>
-          <span class="stat-label">Technologies</span>
+          <span class="stat-label" data-i18n="hero.stat.technologies">Technologies</span>
         </div>
         <div class="stat">
           <span class="stat-number" data-target="3">0</span>
-          <span class="stat-label">Domaines</span>
+          <span class="stat-label" data-i18n="hero.stat.domains">Domaines</span>
         </div>
       </div>
     </div>
@@ -118,17 +141,17 @@
   <section class="section about" id="about">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">À Propos</span>
-        <h2 class="section-title">Passionné par la <span class="gradient-text">technologie</span></h2>
-        <p class="section-subtitle">Une approche multidisciplinaire qui combine code, hardware et intelligence
+        <span class="section-tag" data-i18n="about.tag">À Propos</span>
+        <h2 class="section-title" data-i18n="about.title">Passionné par la <span class="gradient-text">technologie</span></h2>
+        <p class="section-subtitle" data-i18n="about.subtitle">Une approche multidisciplinaire qui combine code, hardware et intelligence
           artificielle.</p>
       </div>
       <div class="about-grid">
         <div class="about-text">
-          <p>Développeur fullstack passionné, j'explore les frontières entre le monde numérique et physique. Mon
+          <p data-i18n="about.p1">Développeur fullstack passionné, j'explore les frontières entre le monde numérique et physique. Mon
             parcours m'a amené à travailler sur des projets variés, allant des applications web modernes aux systèmes
             robotiques intelligents.</p>
-          <p>Ma spécialité ? Créer des ponts entre le <strong>développement logiciel</strong>, la
+          <p data-i18n="about.p2">Ma spécialité ? Créer des ponts entre le <strong>développement logiciel</strong>, la
             <strong>robotique</strong> et le <strong>machine learning</strong> pour construire des solutions innovantes
             et complètes.
           </p>
@@ -136,28 +159,28 @@
             <div class="highlight">
               <div class="highlight-icon">🌐</div>
               <div>
-                <h4>Fullstack</h4>
-                <p>Applications web & mobile complètes</p>
+                <h4 data-i18n="about.highlight.fullstack.title">Fullstack</h4>
+                <p data-i18n="about.highlight.fullstack.desc">Applications web & mobile complètes</p>
               </div>
             </div>
             <div class="highlight">
               <div class="highlight-icon">🤖</div>
               <div>
-                <h4>Robotique</h4>
-                <p>Systèmes embarqués & automatisation</p>
+                <h4 data-i18n="about.highlight.robotics.title">Robotique</h4>
+                <p data-i18n="about.highlight.robotics.desc">Systèmes embarqués & automatisation</p>
               </div>
             </div>
             <div class="highlight">
               <div class="highlight-icon">🧠</div>
               <div>
-                <h4>Machine Learning</h4>
-                <p>Vision par ordinateur & IA appliquée</p>
+                <h4 data-i18n="about.highlight.ml.title">Machine Learning</h4>
+                <p data-i18n="about.highlight.ml.desc">Vision par ordinateur & IA appliquée</p>
               </div>
             </div>
           </div>
         </div>
         <div class="about-tech">
-          <h3>Stack Technologique</h3>
+          <h3 data-i18n="about.techStack">Stack Technologique</h3>
           <div class="tech-grid" id="tech-grid">
             <!-- Filled by JS -->
           </div>
@@ -170,15 +193,15 @@
   <section class="section projects" id="projects">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Projets</span>
-        <h2 class="section-title">Mes <span class="gradient-text">réalisations</span></h2>
-        <p class="section-subtitle">Une sélection de projets qui démontrent mon expertise dans différents domaines.</p>
+        <span class="section-tag" data-i18n="projects.tag">Projets</span>
+        <h2 class="section-title" data-i18n="projects.title">Mes <span class="gradient-text">réalisations</span></h2>
+        <p class="section-subtitle" data-i18n="projects.subtitle">Une sélection de projets qui démontrent mon expertise dans différents domaines.</p>
       </div>
       <div class="project-filters" id="project-filters">
-        <button class="filter-btn active" data-filter="all">Tous</button>
-        <button class="filter-btn" data-filter="fullstack">Fullstack</button>
-        <button class="filter-btn" data-filter="robotics">Robotique</button>
-        <button class="filter-btn" data-filter="ml">Machine Learning</button>
+        <button class="filter-btn active" data-filter="all" data-i18n="projects.filterAll">Tous</button>
+        <button class="filter-btn" data-filter="fullstack" data-i18n="projects.filterFullstack">Fullstack</button>
+        <button class="filter-btn" data-filter="robotics" data-i18n="projects.filterRobotics">Robotique</button>
+        <button class="filter-btn" data-filter="ml" data-i18n="projects.filterML">Machine Learning</button>
       </div>
       <div class="projects-grid" id="projects-grid">
         <!-- Filled by JS -->
@@ -200,9 +223,9 @@
   <section class="section learning" id="learning">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Apprentissage</span>
-        <h2 class="section-title">Projets <span class="gradient-text">d'exploration</span></h2>
-        <p class="section-subtitle">Expérimentations et apprentissages continus pour repousser mes limites.</p>
+        <span class="section-tag" data-i18n="learning.tag">Apprentissage</span>
+        <h2 class="section-title" data-i18n="learning.title">Projets <span class="gradient-text">d'exploration</span></h2>
+        <p class="section-subtitle" data-i18n="learning.subtitle">Expérimentations et apprentissages continus pour repousser mes limites.</p>
       </div>
       <div class="learning-grid" id="learning-grid">
         <!-- Filled by JS -->
@@ -214,9 +237,9 @@
   <section class="section skills" id="skills">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Compétences</span>
-        <h2 class="section-title">Mon <span class="gradient-text">expertise</span></h2>
-        <p class="section-subtitle">L'ensemble de mes compétences diversifié couvrant le développement, la robotique et
+        <span class="section-tag" data-i18n="skills.tag">Compétences</span>
+        <h2 class="section-title" data-i18n="skills.title">Mon <span class="gradient-text">expertise</span></h2>
+        <p class="section-subtitle" data-i18n="skills.subtitle">L'ensemble de mes compétences diversifié couvrant le développement, la robotique et
           l'IA.</p>
       </div>
       <div class="skills-grid" id="skills-grid">
@@ -229,31 +252,31 @@
   <section class="section contact" id="contact">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Contact</span>
-        <h2 class="section-title">Travaillons <span class="gradient-text">ensemble</span></h2>
-        <p class="section-subtitle">Vous avez un projet en tête ? N'hésitez pas à me contacter.</p>
+        <span class="section-tag" data-i18n="contact.tag">Contact</span>
+        <h2 class="section-title" data-i18n="contact.title">Travaillons <span class="gradient-text">ensemble</span></h2>
+        <p class="section-subtitle" data-i18n="contact.subtitle">Vous avez un projet en tête ? N'hésitez pas à me contacter.</p>
       </div>
       <div class="contact-grid">
         <div class="contact-info">
           <div class="contact-card">
             <div class="contact-card-icon">📧</div>
             <div>
-              <h4>Mon Email</h4>
-              <a href="mailto:740268alban@gmail.com">740268alban@gmail.com</a>
+              <h4 data-i18n="contact.email">Mon Email</h4>
+              <a href="mailto:alban@maltos.dev">alban@maltos.dev</a>
             </div>
           </div>
           <div class="contact-card">
             <div class="contact-card-icon">💼</div>
             <div>
-              <h4>LinkedIn</h4>
-              <a href="https://www.linkedin.com/in/alban-delforge-aab7223a6/" target="_blank">Mon profil LinkedIn</a>
+              <h4 data-i18n="contact.linkedin">LinkedIn</h4>
+              <a href="https://www.linkedin.com/in/alban-delforge-aab7223a6/" target="_blank" data-i18n="contact.linkedinLink">Mon profil LinkedIn</a>
             </div>
           </div>
           <div class="contact-card">
             <div class="contact-card-icon">🐙</div>
             <div>
-              <h4>GitHub</h4>
-              <a href="https://github.com/alban-pixel" target="_blank">Mon GitHub</a>
+              <h4 data-i18n="contact.github">GitHub</h4>
+              <a href="https://github.com/alban-pixel" target="_blank" data-i18n="contact.githubLink">Mon GitHub</a>
             </div>
           </div>
           <div class="social-links">
@@ -286,11 +309,11 @@
           <span class="logo-bracket">/&gt;</span>
         </div>
         <nav class="footer-nav">
-          <a href="#hero">Accueil</a>
-          <a href="#about">À Propos</a>
-          <a href="#projects">Projets</a>
-          <a href="#skills">Compétences</a>
-          <a href="#contact">Contact</a>
+          <a href="#hero" data-i18n="footer.home">Accueil</a>
+          <a href="#about" data-i18n="footer.about">À Propos</a>
+          <a href="#projects" data-i18n="footer.projects">Projets</a>
+          <a href="#skills" data-i18n="footer.skills">Compétences</a>
+          <a href="#contact" data-i18n="footer.contact">Contact</a>
         </nav>
         <div class="footer-social">
           <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor">
@@ -304,7 +327,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>Built with ❤️ and code — <span id="current-year"></span></p>
+        <p><span data-i18n="footer.built">Built with ❤️ and code — </span><span id="current-year"></span></p>
       </div>
     </div>
   </footer>
