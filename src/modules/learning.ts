@@ -1,6 +1,6 @@
+import { getLang, t, learningTranslations } from './i18n'
+
 interface LearningProject {
-  title: string
-  description: string
   tech: string
   type: 'learning' | 'experiment'
   emoji: string
@@ -8,90 +8,44 @@ interface LearningProject {
 }
 
 const learningProjects: LearningProject[] = [
-  {
-    title: 'Algorithmes de Tri Visualisés',
-    description: 'Visualisation interactive de différents algorithmes de tri avec animations step-by-step.',
-    tech: 'JavaScript / Canvas',
-    type: 'learning',
-    emoji: '📊',
-    link: '#',
-  },
-  {
-    title: 'Chat Bot avec Raspberry Pi',
-    description: 'Assistant vocal embarqué sur Raspberry Pi avec reconnaissance vocale et synthèse TTS.',
-    tech: 'Python / GPIO',
-    type: 'experiment',
-    emoji: '🔊',
-    link: '#',
-  },
-  {
-    title: 'Réseau de Neurones from Scratch',
-    description: 'Implémentation complète d\'un MLP en Python pur, sans frameworks, pour comprendre le backpropagation.',
-    tech: 'Python / NumPy',
-    type: 'learning',
-    emoji: '🧮',
-    link: '#',
-  },
-  {
-    title: 'API REST avec Express',
-    description: 'API CRUD complète avec authentification JWT, validation, rate limiting et documentation Swagger.',
-    tech: 'Node.js / Express',
-    type: 'learning',
-    emoji: '🔗',
-    link: '#',
-  },
-  {
-    title: 'Suiveur de Ligne Arduino',
-    description: 'Robot suiveur de ligne avec capteurs IR, PID controller et calibration automatique.',
-    tech: 'Arduino / C++',
-    type: 'experiment',
-    emoji: '🏎️',
-    link: '#',
-  },
-  {
-    title: 'GAN - Génération d\'Images',
-    description: 'Expérimentation avec les GANs pour la génération d\'images de paysages artificiels.',
-    tech: 'PyTorch / CUDA',
-    type: 'experiment',
-    emoji: '🎨',
-    link: '#',
-  },
-  {
-    title: 'Composants React Custom',
-    description: 'Bibliothèque de composants React réutilisables avec Storybook et tests unitaires.',
-    tech: 'React / Storybook',
-    type: 'learning',
-    emoji: '🧩',
-    link: '#',
-  },
-  {
-    title: 'Contrôle de Drone par OpenCV',
-    description: 'Contrôle autonome d\'un drone Tello via détection de gestes avec OpenCV et MediaPipe.',
-    tech: 'Python / OpenCV',
-    type: 'experiment',
-    emoji: '🚁',
-    link: '#',
-  },
+  { tech: 'JavaScript / Canvas', type: 'learning', emoji: '📊', link: '#' },
+  { tech: 'Python / GPIO', type: 'experiment', emoji: '🔊', link: '#' },
+  { tech: 'Python / NumPy', type: 'learning', emoji: '🧮', link: '#' },
+  { tech: 'Node.js / Express', type: 'learning', emoji: '🔗', link: '#' },
+  { tech: 'Arduino / C++', type: 'experiment', emoji: '🏎️', link: '#' },
+  { tech: 'PyTorch / CUDA', type: 'experiment', emoji: '🎨', link: '#' },
+  { tech: 'React / Storybook', type: 'learning', emoji: '🧩', link: '#' },
+  { tech: 'Python / OpenCV', type: 'experiment', emoji: '🚁', link: '#' },
 ]
 
-export function initLearning() {
+function render() {
   const grid = document.getElementById('learning-grid')
   if (!grid) return
 
-  learningProjects.forEach((project) => {
+  const lang = getLang()
+  const texts = learningTranslations[lang]
+
+  grid.innerHTML = ''
+  learningProjects.forEach((project, i) => {
+    const text = texts[i]
     const card = document.createElement('div')
     card.className = 'learning-card'
     card.innerHTML = `
       <div class="learning-card-header">
-        <span class="learning-badge ${project.type}">${project.type === 'learning' ? '📚 Learning' : '🧪 Experiment'}</span>
+        <span class="learning-badge ${project.type}">${project.type === 'learning' ? t('learning.badgeLearning') : t('learning.badgeExperiment')}</span>
         <span class="learning-card-icon">${project.emoji}</span>
       </div>
-      <h3>${project.title}</h3>
-      <p>${project.description}</p>
+      <h3>${text.title}</h3>
+      <p>${text.description}</p>
       <div class="learning-card-footer">
         <span class="learning-card-tech">${project.tech}</span>
       </div>
     `
     grid.appendChild(card)
   })
+}
+
+export function initLearning() {
+  render()
+  window.addEventListener('languageChanged', render)
 }

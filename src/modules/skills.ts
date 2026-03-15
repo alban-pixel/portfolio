@@ -1,3 +1,5 @@
+import { getLang, skillCategoryTranslations } from './i18n'
+
 interface SkillCategory {
   name: string
   icon: string
@@ -57,17 +59,24 @@ const skillCategories: SkillCategory[] = [
   },
 ]
 
-export function initSkills() {
+function translateSkillName(name: string): string {
+  const lang = getLang()
+  const map = skillCategoryTranslations[lang]
+  return map[name] || name
+}
+
+function render() {
   const grid = document.getElementById('skills-grid')
   if (!grid) return
 
+  grid.innerHTML = ''
   skillCategories.forEach((category) => {
     const card = document.createElement('div')
     card.className = 'skill-category'
     card.innerHTML = `
       <div class="skill-category-header">
         <div class="skill-category-icon">${category.icon}</div>
-        <h3>${category.name}</h3>
+        <h3>${translateSkillName(category.name)}</h3>
       </div>
       <div class="skill-list">
         ${category.skills
@@ -75,7 +84,7 @@ export function initSkills() {
             (skill) => `
           <div class="skill-item">
             <div class="skill-info">
-              <span class="skill-name">${skill.name}</span>
+              <span class="skill-name">${translateSkillName(skill.name)}</span>
               <span class="skill-percentage">${skill.level}%</span>
             </div>
             <div class="skill-bar">
@@ -89,4 +98,12 @@ export function initSkills() {
     `
     grid.appendChild(card)
   })
+
+  // Notify animations to re-bind skill bars
+  window.dispatchEvent(new CustomEvent('skillsRendered'))
+}
+
+export function initSkills() {
+  render()
+  window.addEventListener('languageChanged', render)
 }

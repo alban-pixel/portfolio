@@ -1,3 +1,5 @@
+import { setLanguage, getLang } from './i18n'
+
 export function initNavbar() {
   const navbar = document.getElementById('navbar')
   const hamburger = document.getElementById('nav-hamburger')
@@ -42,6 +44,26 @@ export function initNavbar() {
     document.documentElement.setAttribute('data-theme', next)
     localStorage.setItem('theme', next)
   })
+
+  // Language toggle
+  const langToggle = document.getElementById('lang-toggle')
+  const langFlag = document.getElementById('lang-toggle-flag')
+
+  function updateFlag() {
+    if (langFlag) {
+      langFlag.textContent = getLang() === 'fr' ? '🇫🇷' : '🇬🇧'
+    }
+  }
+
+  updateFlag()
+
+  langToggle?.addEventListener('click', () => {
+    const next = getLang() === 'fr' ? 'en' : 'fr'
+    setLanguage(next)
+  })
+
+  // Update flag when language changes from other sources (e.g. popup)
+  window.addEventListener('languageChanged', updateFlag)
 
   // Scroll spy function
   function updateActiveLink() {

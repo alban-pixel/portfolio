@@ -1,4 +1,5 @@
 import './style.css'
+import { initLangPopup } from './modules/langPopup'
 import { initHero } from './modules/hero'
 import { initNavbar } from './modules/navbar'
 import { initAbout } from './modules/about'
@@ -10,6 +11,9 @@ import { initAnimations } from './modules/animations'
 
 // Initialize all modules
 document.addEventListener('DOMContentLoaded', () => {
+  // Language popup first (sets language before rendering)
+  initLangPopup()
+
   initNavbar()
   initHero()
   initAbout()

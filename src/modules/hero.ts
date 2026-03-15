@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { gsap } from 'gsap'
+import { typingTitles, getLang } from './i18n'
 
 export function initHero() {
   initThreeScene()
@@ -151,23 +152,30 @@ function initTypingEffect() {
   const el = document.getElementById('typing-text')
   if (!el) return
 
-  const titles = ['Fullstack', 'Robotique', 'Machine Learning']
+  let titles = typingTitles[getLang()]
   let currentIndex = 0
+  let activeTl: gsap.core.Timeline | null = null
+  let activeDelay: gsap.core.Tween | null = null
+
+  function killAll() {
+    if (activeTl) { activeTl.kill(); activeTl = null }
+    if (activeDelay) { activeDelay.kill(); activeDelay = null }
+  }
 
   function typeTitle() {
     const title = titles[currentIndex]
-    el.innerHTML = '\u00A0' // non-breaking space to reserve line height
+    el.innerHTML = '\u00A0'
 
-    const tl = gsap.timeline({
+    activeTl = gsap.timeline({
       onComplete: () => {
-        gsap.delayedCall(1.5, () => {
+        activeDelay = gsap.delayedCall(1.5, () => {
           deleteTitle(title.length)
         })
       },
     })
 
     for (let i = 0; i < title.length; i++) {
-      tl.to(el, {
+      activeTl.to(el, {
         duration: 0.06,
         onComplete: () => {
           el.textContent = title.substring(0, i + 1)
@@ -175,21 +183,20 @@ function initTypingEffect() {
       }, i * 0.06)
     }
 
-    // Add blinking cursor
-    tl.set(el, { className: '+=typing-cursor' })
+    activeTl.set(el, { className: '+=typing-cursor' })
   }
 
   function deleteTitle(length: number) {
-    const tl = gsap.timeline({
+    activeTl = gsap.timeline({
       onComplete: () => {
         currentIndex = (currentIndex + 1) % titles.length
         el.classList.remove('typing-cursor')
-        gsap.delayedCall(0.3, typeTitle)
+        activeDelay = gsap.delayedCall(0.3, typeTitle)
       },
     })
 
     for (let i = length; i >= 0; i--) {
-      tl.to(el, {
+      activeTl.to(el, {
         duration: 0.04,
         onComplete: () => {
           el.textContent = el.textContent!.substring(0, i) || '\u00A0'
@@ -199,7 +206,17 @@ function initTypingEffect() {
   }
 
   // Start after hero animation
-  gsap.delayedCall(1.5, typeTitle)
+  activeDelay = gsap.delayedCall(1.5, typeTitle)
+
+  // Re-init on language change
+  window.addEventListener('languageChanged', () => {
+    killAll()
+    titles = typingTitles[getLang()]
+    currentIndex = 0
+    el.textContent = '\u00A0'
+    el.classList.remove('typing-cursor')
+    activeDelay = gsap.delayedCall(0.3, typeTitle)
+  })
 }
 
 function initHeroAnimations() {

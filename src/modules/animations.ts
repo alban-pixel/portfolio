@@ -135,10 +135,19 @@ function initCustomCursor() {
   })
 }
 
-function initSkillBarAnimations() {
+function animateSkillBars() {
+  // Kill old skill-related ScrollTriggers
+  ScrollTrigger.getAll().forEach((st) => {
+    if (st.trigger && (st.trigger as HTMLElement).classList?.contains('skill-progress')) {
+      st.kill()
+    }
+  })
+
   // Animate skill bars on scroll
   gsap.utils.toArray('.skill-progress').forEach((bar: any) => {
     const width = bar.getAttribute('data-width')
+    // Reset width first
+    gsap.set(bar, { width: 0 })
     ScrollTrigger.create({
       trigger: bar,
       start: 'top 85%',
@@ -151,6 +160,15 @@ function initSkillBarAnimations() {
       },
       once: true,
     })
+  })
+}
+
+function initSkillBarAnimations() {
+  animateSkillBars()
+  // Re-animate after skills are re-rendered (e.g. language change)
+  window.addEventListener('skillsRendered', () => {
+    // Small delay to let DOM settle
+    requestAnimationFrame(animateSkillBars)
   })
 }
 
